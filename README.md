@@ -19,7 +19,7 @@ Example for trackList.json
 The configs specific to this plugin are
 
 * bigbed - object that initializes a bigbed store
-* highlightColor - color probably inluding some alpha transparency, can be in any color format, default #f0fb
+* highlightColor - color probably including some alpha transparency, can be in any color format, default #f0fb
 * indicatorColor - color probably for indicator drawn below, can be in any color format, default #f0f
 * indicatorHeight - a height for the indicator, defalt 3px
 * broaden - number to broaden the drawn peaks by in bp
@@ -29,7 +29,6 @@ The configs specific to this plugin are
 
 This is very beta feel free to provide feedback though
 
-Fun fact you could actually use the highlighting on a different track type
 
 ## Screenshot
 

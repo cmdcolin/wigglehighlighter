@@ -4,6 +4,7 @@ define([
     'dojo/_base/lang',
     'JBrowse/Store/SeqFeature/BigBed',
     'JBrowse/View/Track/Wiggle/Density',
+    './Base',
 ],
 function (
     declare,
@@ -11,11 +12,9 @@ function (
     lang,
     BigBed,
     Density,
+    Base,
 ) {
-    return declare(Density, {
+    return declare([Density, Base], {
 
-        constructor: function (args) {
-            this.highlightStore = new BigBed(Object.assign({},this.config.bigbed,args))
-        }
     });
 });

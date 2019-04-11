@@ -16,9 +16,17 @@ Example for trackList.json
          "broaden": 100
       }
 
+The configs specific to this plugin are
+
+* bigbed - object that initializes a bigbed store
+* highlightColor - color probably inluding some alpha transparency, can be in any color format
+* broaden - number to broaden the drawn peaks by in bp
+
 ## Note
 
 This is very beta feel free to provide feedback though
+
+Fun fact you could actually use the highlighting on a different track type
 
 ## Screenshot
 

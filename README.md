@@ -19,8 +19,11 @@ Example for trackList.json
 The configs specific to this plugin are
 
 * bigbed - object that initializes a bigbed store
-* highlightColor - color probably inluding some alpha transparency, can be in any color format
+* highlightColor - color probably inluding some alpha transparency, can be in any color format, default #f0fb
+* indicatorColor - color probably for indicator drawn below, can be in any color format, default #f0f
+* indicatorHeight - a height for the indicator, defalt 3px
 * broaden - number to broaden the drawn peaks by in bp
+* type - this plugin has WiggleHighlighter/View/Track/XYPlot and WiggleHighlighter/View/Track/Density track types
 
 ## Note
 

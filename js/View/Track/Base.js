@@ -24,6 +24,8 @@ function (
                 dojo.clone( this.inherited(arguments) ),
                 {
                     highlightColor: '#f0f2',
+                    indicatorColor: '#f0f',
+                    indicatorHeight: 3,
                     broaden: 0
                 }
             );
@@ -32,8 +34,8 @@ function (
         _postDraw: function( scale, leftBase, rightBase, block, canvas, features, featureRects, dataScale ) {
             this.highlightStore.getFeatures({ref:this.browser.refSeq.name, start: leftBase, end: rightBase},
                 feature => {
-                    const s = block.bpToX(feature.get('start')-this.config.broaden)
-                    const e = block.bpToX(feature.get('end')+this.config.broaden)
+                    const s = block.bpToX(Math.max(feature.get('start')-this.config.broaden,block.startBase))
+                    const e = block.bpToX(Math.min(feature.get('end')+this.config.broaden,block.endBase))
                     const ret = dojo.create('div',
                         {
                             style: {
@@ -41,10 +43,19 @@ function (
                                 width: `${e-s}px`,
                                 height: canvas.style.height,
                                 top: 0,
-                                display: 'inline',
-                                zIndex: 10000,
                                 position: 'absolute',
                                 backgroundColor: this.config.highlightColor
+                            }
+                        }, block.domNode)
+                    const indicator = dojo.create('div',
+                        {
+                            style: {
+                                left: `${s}px`,
+                                width: `${e-s}px`,
+                                height: `${this.config.indicatorHeight}px`,
+                                top: canvas.style.height,
+                                position: 'absolute',
+                                backgroundColor: this.config.indicatorColor
                             }
                         }, block.domNode)
                 },

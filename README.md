@@ -1,31 +1,29 @@
 # wigglehighlighter
 
-[![](https://travis-ci.org/elsiklab/wigglehighlighter.svg?branch=master)](https://travis-ci.org/elsiklab/wigglehighlighter)
-
-A JBrowse plugin for plotting multiple bigwig files on a single track. Includes a storeclass
-that accepts multiple bigwig URLs and a custom tracktype for rendering the subtracks.
-
-
-![](img/out.png)
-Figure with MultiDensity and MultiXYPlot with different group colorings
+A JBrowse plugin for plotting a highlight based on data in a bigbed file over a Wiggle track
 
 
 ## Example configs
 
-Example for trackList.json (MultiDensity as example)
+Example for trackList.json
 
       {
-         "storeClass" : "MultiBigWig/Store/SeqFeature/MultiBigWig",
          "urlTemplate" : "yourfile.bw",
          "bigbed": { "urlTemplate": "yourfile.bb" },
          "label" : "Track",
-         "type" : "MultiBigWig/View/Track/MultiWiggle/MultiDensity"
-         "style": {
-           "highlightColor": "#f0f2",
-           "broaden": 100
-         }
+         "type" : "WiggleHighlighter/View/Track/XYPlot"
+         "highlightColor": "#f0f2",
+         "broaden": 100
       }
 
+## Note
+
+This is very beta feel free to provide feedback though
+
+## Screenshot
+
+![](img/out.png)
+Showing default settings on an ENCODE bigbed file and bigwig file with highlighting and broadening of the peak coordinates
 
 ## Install
 

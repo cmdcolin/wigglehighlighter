@@ -17,9 +17,13 @@ Example for trackList.json (MultiDensity as example)
       {
          "storeClass" : "MultiBigWig/Store/SeqFeature/MultiBigWig",
          "urlTemplate" : "yourfile.bw",
-         "bigwig": { "urlTemplate": "yourfile.bb" },
+         "bigbed": { "urlTemplate": "yourfile.bb" },
          "label" : "Track",
          "type" : "MultiBigWig/View/Track/MultiWiggle/MultiDensity"
+         "style": {
+           "highlightColor": "#f0f2",
+           "broaden": 100
+         }
       }
 
 

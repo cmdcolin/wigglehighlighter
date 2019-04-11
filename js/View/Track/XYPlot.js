@@ -24,8 +24,8 @@ function (
             //const container = dojo.create('div', {style: {position:'relative',width:`${canvas.width/2}px`,height:`${canvas.height/2}px`,display:'inline'}}, block.domNode)
             this.highlightStore.getFeatures({ref:this.browser.refSeq.name, start: leftBase, end: rightBase},
                 feature => {
-                    const s = block.bpToX(feature.get('start'))
-                    const e = block.bpToX(feature.get('end'))
+                    const s = block.bpToX(feature.get('start')-(this.config.broaden||100))
+                    const e = block.bpToX(feature.get('end')+(this.config.broaden||100))
                     const ret = dojo.create('div',
                         {
                             style: {
@@ -36,7 +36,7 @@ function (
                                 display: 'inline',
                                 zIndex: 10000,
                                 position: 'absolute',
-                                backgroundColor: '#fffe'
+                                backgroundColor: this.config.highlightColor||'#f0f2'
                             }
                         }, block.domNode)
                 },

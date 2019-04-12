@@ -25,10 +25,6 @@ The configs specific to this plugin are
 * broaden - number to broaden the drawn peaks by in bp
 * type - this plugin has WiggleHighlighter/View/Track/XYPlot and WiggleHighlighter/View/Track/Density track types
 
-## Note
-
-This is very beta feel free to provide feedback though
-
 
 ## Screenshot
 

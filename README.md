@@ -16,9 +16,28 @@ Example for trackList.json
          "broaden": 100
       }
 
-The configs specific to this plugin are
+Use general store to load from BEDTabix instead of BigBed, listed in tracks.conf format
 
-* bigbed - object that initializes a bigbed store
+    [tracks.wigglehighlighter_bedtabix]
+    key=WiggleHighter with BEDTabix
+    type=WiggleHighlighter/View/Track/XYPlot
+    urlTemplate=volvox_microarray.bw
+    storeConf=json:{"storeClass": "JBrowse/Store/SeqFeature/BEDTabix", "urlTemplate": "peaks.bed.gz"}
+
+
+## Config
+
+
+### Store options
+
+* bigbed - object that initializes a bigbed store, listed like "bigbed": {"urlTemplate": "file.bb"}
+-- or --
+* storeConf - object that initializes a general store, available since version 1.1.0, listed list "storeConf": {"storeClass": "JBrowse/Store/SeqFeature/BEDTabix", "urlTemplate": "file.bed.gz"}
+
+The storeConf is obviously more generic, but was added later. BigBed remains for backwards compatibility
+
+## Visual options
+
 * highlightColor - color probably including some alpha transparency, can be in any color format, default #f0fb
 * indicatorColor - color probably for indicator drawn below, can be in any color format, default #f0f
 * indicatorHeight - a height for the indicator, defalt 3px

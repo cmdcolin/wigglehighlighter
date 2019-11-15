@@ -20,8 +20,16 @@ function (
 ) {
     return declare(FeatureDetailMixin, {
         constructor: function (args) {
-            const ret = Object.assign({},this.config.bigbed,args)
-            this.highlightStore = new BigBed(ret)
+            if(this.config.bigbed) {
+                const ret = Object.assign({},this.config.bigbed,args)
+                this.highlightStore = new BigBed(ret)
+            } else {
+                const conf = this.config.storeConf
+                const CLASS = dojo.global.require(conf.storeClass)
+                const newConf = Object.assign({}, args, conf)
+                newConf.config = Object.assign({}, args.config, conf)
+                this.highlightStore = new CLASS(newConf)
+            }
         },
         _defaultConfig: function() {
             return Util.deepUpdate(
@@ -62,16 +70,13 @@ function (
                             backgroundColor: this.config.indicatorColor
                         }
                     }, block.domNode)
-                    console.log('herere')
                     on(indicator, 'click',
                       () => {
-                          console.log('herere')
                           new Dialog({ content: this.defaultFeatureDetail(this, feature, null, null, null) }).show()
                       }
                     )
                     on(ret, 'click',
                         () => {
-                          console.log('herere2')
                           new Dialog({ content: this.defaultFeatureDetail(this, feature, null, null, null) }).show()
                       }
                     )

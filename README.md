@@ -58,4 +58,9 @@ Showing default settings on an ENCODE bigbed file and bigwig file with highlight
 
 Please see http://gmod.org/wiki/JBrowse_FAQ#How_do_I_install_a_plugin for more information about installing plugins
 
+
+## Demo
+
+See http://localhost/?data=plugins/WiggleHighlighter/test/data once you have installed for small demo dataset
+
 Still in beta! Feel free to provide feedback

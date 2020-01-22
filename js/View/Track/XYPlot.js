@@ -4,7 +4,7 @@ define([
     'dojo/_base/lang',
     'JBrowse/Store/SeqFeature/BigBed',
     'JBrowse/View/Track/Wiggle/XYPlot',
-    './Base',
+    './Base'
 ],
 function (
     declare,

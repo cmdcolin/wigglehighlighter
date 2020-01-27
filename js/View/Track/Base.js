@@ -43,7 +43,7 @@ function (
             );
         },
 
-        _postDraw: function (scale, leftBase, rightBase, block, canvas, features, featureRects, dataScale) {
+        _postDraw: function (scale, leftBase, rightBase, block, canvas) {
             this.highlightStore.getFeatures({ref: this.browser.refSeq.name, start: leftBase, end: rightBase},
                 feature => {
                     const s = block.bpToX(Math.max(feature.get('start') - this.config.broaden, block.startBase));
@@ -56,7 +56,7 @@ function (
                             top: 0,
                             zIndex: 10000,
                             position: 'absolute',
-                            backgroundColor: this.config.highlightColor
+                            backgroundColor: this.getConf('highlightColor', feature)
                         }
                     }, block.domNode);
                     const indicator = dojo.create('div', {
@@ -67,7 +67,7 @@ function (
                             zIndex: 10000,
                             top: canvas.style.height,
                             position: 'absolute',
-                            backgroundColor: this.config.indicatorColor
+                            backgroundColor: this.getConf('indicatorColor', feature)
                         }
                     }, block.domNode);
                     on(indicator, 'click',

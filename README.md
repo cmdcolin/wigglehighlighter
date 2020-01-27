@@ -1,6 +1,6 @@
 # wigglehighlighter
 
-A JBrowse plugin for plotting a highlight based on data in a bigbed file over a Wiggle track
+A JBrowse plugin for plotting a highlight based over a wiggle track. Has been extended to take arbitrary backend for the highlight "store" (highlight regions can come from bigbed or arbitrary storeConf) and also can render of JBrowse XYPlot, Density, or MultiBigWig XYPlot or Density
 
 
 ## Example configs

@@ -25,6 +25,20 @@ Use general store to load from BEDTabix instead of BigBed, listed in tracks.conf
     storeConf=json:{"storeClass": "JBrowse/Store/SeqFeature/BEDTabix", "urlTemplate": "peaks.bed.gz"}
 
 
+
+Configuration on a MultiBigWig track
+
+    [tracks.wigglehighlighter_multi]
+    key=WiggleHighter w/ MultiBigWig
+    type=WiggleHighlighter/View/Track/MultiXYPlot
+    urlTemplates+=json:{"url":"volvox_microarray.bw", "name": "volvox_positive", "color": "#235"}
+    urlTemplates+=json:{"url":"volvox_microarray_negative.bw", "name": "volvox_negative", "color": "#a54"}
+    storeClass=MultiBigWig/Store/SeqFeature/MultiBigWig
+    storeConf=json:{"storeClass": "JBrowse/Store/SeqFeature/BEDTabix", "urlTemplate": "peaks.bed.gz"}
+    autoscale=global
+
+Note: this requires MultiBigWig to be installed
+
 ## Config
 
 

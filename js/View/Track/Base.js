@@ -1,7 +1,5 @@
 define([
     'dojo/_base/declare',
-    'dojo/_base/array',
-    'dojo/_base/lang',
     'dojo/on',
     'dijit/Dialog',
     'JBrowse/Util',
@@ -10,8 +8,6 @@ define([
 ],
 function (
     declare,
-    array,
-    lang,
     on,
     Dialog,
     Util,

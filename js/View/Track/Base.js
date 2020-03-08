@@ -1,6 +1,7 @@
 define([
     'dojo/_base/declare',
     'dojo/on',
+    'dojo/mouse',
     'dijit/Dialog',
     'JBrowse/Util',
     'JBrowse/Store/SeqFeature/BigBed',
@@ -9,6 +10,7 @@ define([
 function (
     declare,
     on,
+    mouse,
     Dialog,
     Util,
     BigBed,
@@ -33,7 +35,9 @@ function (
                     highlightColor: '#f0f2',
                     indicatorColor: '#f0f',
                     indicatorHeight: 3,
-                    broaden: 0
+                    broaden: 0,
+                    onHighlightClick: feature => new Dialog({ content: this.defaultFeatureDetail(this, feature, null, null, null) }).show(),
+                    onHighlightRightClick: () => {}
                 }
             );
         },
@@ -66,14 +70,19 @@ function (
                         }
                     }, block.domNode);
 
-                    const callback = this.config.onHighlightClick ?
-                        () => this.config.onHighlightClick(feature, this) :
-                        () => new Dialog({ content: this.defaultFeatureDetail(this, feature, null, null, null) }).show();
 
-
-                    on(indicator, 'click', callback)
-                    on(ret, 'click', callback)
-
+                    const effectiveCallback = event => {
+                        event.stopPropagation();
+                        if (mouse.isRight(event)) {
+                            console.log('here');
+                            this.getConf('onHighlightRightClick', [feature, this]);
+                        } else {
+                            console.log('here2');
+                            this.getConf('onHighlightClick', [feature, this]);
+                        }
+                    };
+                    on(indicator, 'mousedown', effectiveCallback);
+                    on(ret, 'mousedown', effectiveCallback);
                 },
                 () => { },
                 error => { console.error(error); }

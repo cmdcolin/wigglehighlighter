@@ -36,6 +36,8 @@ function (
                     indicatorColor: '#f0f',
                     indicatorHeight: 3,
                     broaden: 0,
+                    showLabels: true,
+                    style: { label: feature => feature.get('name')||feature.get('id') },
                     onHighlightClick: feature => new Dialog({ content: this.defaultFeatureDetail(this, feature, null, null, null) }).show(),
                     onHighlightRightClick: () => {}
                 }
@@ -69,6 +71,27 @@ function (
                             backgroundColor: this.getConf('indicatorColor', [feature, this])
                         }
                     }, block.domNode);
+// draw label
+          const textLeft = block.bpToX(
+            feature.get("start") - this.config.broaden
+          );
+          const label = this.config.showLabels? this.config.style.label(feature):null;
+			console.log(label,this.config,this.config.style.label(feature),feature)
+          if (label) {
+            dojo.create(
+              "div",
+              {
+                style: {
+                  left: `${textLeft}px`,
+                  top: 0,
+                  zIndex: 10000,
+                  position: "absolute",
+                },
+                innerHTML: label,
+              },
+              block.domNode
+            );
+          }
 
 
                     const effectiveCallback = event => {

@@ -28,7 +28,10 @@ define([
         indicatorHeight: 3,
         broaden: 0,
         showLabels: true,
+<<<<<<< HEAD
         opacity: 0.5,
+=======
+>>>>>>> 7b0938695e73064c85e0150f7682171835083e92
         style: { label: (feature, track) => feature.get('name') || feature.get('id') },
         onHighlightClick: feature =>
           new Dialog({

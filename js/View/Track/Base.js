@@ -28,7 +28,7 @@ define([
         indicatorHeight: 3,
         broaden: 0,
         showLabels: true,
-        style: { label: feature => feature.get('name') || feature.get('id') },
+        style: { label: (feature, track) => feature.get('name') || feature.get('id') },
         onHighlightClick: feature =>
           new Dialog({
             content: this.defaultFeatureDetail(this, feature, null, null, null),
@@ -60,10 +60,7 @@ define([
                 top: 0,
                 zIndex: 10000,
                 position: 'absolute',
-                backgroundColor: this.getConf('highlightColor', [
-                  feature,
-                  this,
-                ]),
+                backgroundColor: this.config.highlightColor(feature, this),
               },
             },
             block.domNode,
@@ -78,10 +75,7 @@ define([
                 zIndex: 10000,
                 top: canvas.style.height,
                 position: 'absolute',
-                backgroundColor: this.getConf('indicatorColor', [
-                  feature,
-                  this,
-                ]),
+                backgroundColor: this.config.indicatorColor(feature, this)
               },
             },
             block.domNode,
@@ -91,7 +85,7 @@ define([
             feature.get('start') - this.config.broaden,
           )
           const label = this.config.showLabels
-            ? this.config.style.label(feature)
+            ? this.config.style.label(feature, this)
             : null
           if (label) {
             dojo.create(
@@ -112,10 +106,8 @@ define([
           const effectiveCallback = event => {
             event.stopPropagation()
             if (mouse.isRight(event)) {
-              console.log('here')
               this.getConf('onHighlightRightClick', [feature, this])
             } else {
-              console.log('here2')
               this.getConf('onHighlightClick', [feature, this])
             }
           }

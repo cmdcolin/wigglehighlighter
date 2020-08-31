@@ -28,6 +28,7 @@ define([
         indicatorHeight: 3,
         broaden: 0,
         showLabels: true,
+        opacity: 0.5,
         style: { label: (feature, track) => feature.get('name') || feature.get('id') },
         onHighlightClick: feature =>
           new Dialog({
@@ -85,23 +86,20 @@ define([
             feature.get('start') - this.config.broaden,
           )
           const label = this.config.showLabels
-            ? this.config.style.label(feature, this)
+            ? (dojo.create(
+                  'div',
+                  {
+                      style: {
+                          left: `${textLeft}px`,
+                          top: 0,
+                          zIndex: 10000,
+                          position: 'absolute',
+                      },
+                      innerHTML: this.config.style.label(feature, this),
+                  },
+                  block.domNode,
+              ))
             : null
-          if (label) {
-            dojo.create(
-              'div',
-              {
-                style: {
-                  left: `${textLeft}px`,
-                  top: 0,
-                  zIndex: 10000,
-                  position: 'absolute',
-                },
-                innerHTML: label,
-              },
-              block.domNode,
-            )
-          }
 
           const effectiveCallback = event => {
             event.stopPropagation()
@@ -113,6 +111,11 @@ define([
           }
           on(indicator, 'mousedown', effectiveCallback)
           on(ret, 'mousedown', effectiveCallback)
+          if(label)
+          {
+              on(label, 'mousedown', effectiveCallback)
+          }
+
         },
         () => {},
         error => {

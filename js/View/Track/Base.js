@@ -53,7 +53,6 @@ define([
             Math.min(feature.get('end') + this.config.broaden, block.endBase),
           )
 
-          console.log(this.config.highlightColor)
           const ret = dojo.create(
             'div',
             {
@@ -93,11 +92,12 @@ define([
           // draw label
           const label =
             this.config.showLabels && this.config.style.label(feature, this)
+          let domLabel
           if (label) {
             const textLeft = block.bpToX(
               feature.get('start') - this.config.broaden,
             )
-            const label = dojo.create(
+            domLabel = dojo.create(
               'div',
               {
                 style: {
@@ -122,8 +122,8 @@ define([
           }
           on(indicator, 'mousedown', effectiveCallback)
           on(ret, 'mousedown', effectiveCallback)
-          if (label) {
-            on(label, 'mousedown', effectiveCallback)
+          if (domLabel) {
+            on(domLabel, 'mousedown', effectiveCallback)
           }
         },
         () => {},

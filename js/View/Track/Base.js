@@ -28,7 +28,9 @@ define([
         indicatorHeight: 3,
         broaden: 0,
         showLabels: true,
-        style: { label: (feature, track) => feature.get('name') || feature.get('id') },
+        style: {
+          label: (feature, track) => feature.get('name') || feature.get('id'),
+        },
         onHighlightClick: feature =>
           new Dialog({
             content: this.defaultFeatureDetail(this, feature, null, null, null),
@@ -50,6 +52,8 @@ define([
           const e = block.bpToX(
             Math.min(feature.get('end') + this.config.broaden, block.endBase),
           )
+
+          console.log(this.config.highlightColor)
           const ret = dojo.create(
             'div',
             {
@@ -60,7 +64,10 @@ define([
                 top: 0,
                 zIndex: 10000,
                 position: 'absolute',
-                backgroundColor: this.config.highlightColor(feature, this),
+                backgroundColor:
+                  typeof this.config.highlightColor === 'function'
+                    ? this.config.highlightColor(feature, this)
+                    : this.config.highlightColor,
               },
             },
             block.domNode,
@@ -75,30 +82,35 @@ define([
                 zIndex: 10000,
                 top: canvas.style.height,
                 position: 'absolute',
-                backgroundColor: this.config.indicatorColor(feature, this)
+                backgroundColor:
+                  typeof this.config.indicatorColor === 'function'
+                    ? this.config.indicatorColor(feature, this)
+                    : this.config.indicatorColor,
               },
             },
             block.domNode,
           )
           // draw label
-          const textLeft = block.bpToX(
-            feature.get('start') - this.config.broaden,
-          )
-          const label = this.config.showLabels
-            ? (dojo.create(
-                  'div',
-                  {
-                      style: {
-                          left: `${textLeft}px`,
-                          top: 0,
-                          zIndex: 10000,
-                          position: 'absolute',
-                      },
-                      innerHTML: this.config.style.label(feature, this),
-                  },
-                  block.domNode,
-              ))
-            : null
+          const label =
+            this.config.showLabels && this.config.style.label(feature, this)
+          if (label) {
+            const textLeft = block.bpToX(
+              feature.get('start') - this.config.broaden,
+            )
+            const label = dojo.create(
+              'div',
+              {
+                style: {
+                  left: `${textLeft}px`,
+                  top: 0,
+                  zIndex: 10000,
+                  position: 'absolute',
+                },
+                innerHTML: this.config.style.label(feature, this),
+              },
+              block.domNode,
+            )
+          }
 
           const effectiveCallback = event => {
             event.stopPropagation()
@@ -110,11 +122,9 @@ define([
           }
           on(indicator, 'mousedown', effectiveCallback)
           on(ret, 'mousedown', effectiveCallback)
-          if(label)
-          {
-              on(label, 'mousedown', effectiveCallback)
+          if (label) {
+            on(label, 'mousedown', effectiveCallback)
           }
-
         },
         () => {},
         error => {

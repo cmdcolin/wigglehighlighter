@@ -27,7 +27,7 @@ define([
         indicatorColor: '#f0f',
         indicatorHeight: 3,
         broaden: 0,
-        showLabels: true,
+        showLabels: false,
         style: {
           label: (feature, track) => feature.get('name') || feature.get('id'),
         },

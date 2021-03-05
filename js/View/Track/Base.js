@@ -114,16 +114,15 @@ define([
           }
 
           const effectiveCallback = event => {
-            event.stopPropagation()
             if (mouse.isRight(event)) {
-              this.getConf('onHighlightRightClick', [feature, this])
+              this.getConf('onHighlightRightClick', [feature, this, event])
             } else {
-              this.getConf('onHighlightClick', [feature, this])
+              this.getConf('onHighlightClick', [feature, this, event])
             }
+          event.stopPropagation()
           }
 
           const contextCallback = event => {
-              console.log(event)
               event = domEvent.fix(event)
               domEvent.stop(event)
           }

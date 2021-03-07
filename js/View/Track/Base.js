@@ -2,11 +2,12 @@ define([
   'dojo/_base/declare',
   'dojo/on',
   'dojo/mouse',
+  'dojo/_base/event',
   'dijit/Dialog',
   'JBrowse/Util',
   'JBrowse/Store/SeqFeature/BigBed',
   'JBrowse/View/Track/_FeatureDetailMixin',
-], function (declare, on, mouse, Dialog, Util, BigBed, FeatureDetailMixin) {
+], function (declare, on, mouse, domEvent, Dialog, Util, BigBed, FeatureDetailMixin) {
   return declare(FeatureDetailMixin, {
     constructor: function (args) {
       if (this.config.bigbed) {
@@ -113,18 +114,28 @@ define([
           }
 
           const effectiveCallback = event => {
-            event.stopPropagation()
             if (mouse.isRight(event)) {
-              this.getConf('onHighlightRightClick', [feature, this])
+              this.getConf('onHighlightRightClick', [feature, this, event])
             } else {
-              this.getConf('onHighlightClick', [feature, this])
+              this.getConf('onHighlightClick', [feature, this, event])
             }
+          event.stopPropagation()
           }
+
+          const contextCallback = event => {
+              event = domEvent.fix(event)
+              domEvent.stop(event)
+          }
+
+          on(indicator, 'contextmenu', contextCallback)
           on(indicator, 'mousedown', effectiveCallback)
           on(ret, 'mousedown', effectiveCallback)
+            on(ret, 'contextmenu', contextCallback)
           if (domLabel) {
             on(domLabel, 'mousedown', effectiveCallback)
+              on(domLabel, 'contextmenu', contextCallback)
           }
+
         },
         () => {},
         error => {

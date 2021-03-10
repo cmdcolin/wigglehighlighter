@@ -122,19 +122,24 @@ define([
           event.stopPropagation()
           }
 
-          const contextCallback = event => {
+          const cancelCallback = event => {
+              event.preventDefault();
               event = domEvent.fix(event)
               domEvent.stop(event)
           }
 
-          on(indicator, 'contextmenu', contextCallback)
-          on(indicator, 'mousedown', effectiveCallback)
-          on(ret, 'mousedown', effectiveCallback)
-            on(ret, 'contextmenu', contextCallback)
-          if (domLabel) {
-            on(domLabel, 'mousedown', effectiveCallback)
-              on(domLabel, 'contextmenu', contextCallback)
+          let toListen = [indicator, ret];
+
+          if (domLabel)
+          {
+              toListen.push(domLabel);
           }
+
+          toListen.forEach(e => {
+              on(e, 'contextMenu', cancelCallback);
+              on(e, 'dblclick', cancelCallback);
+              on(e, 'mousedown', effectiveCallback);
+          })
 
         },
         () => {},

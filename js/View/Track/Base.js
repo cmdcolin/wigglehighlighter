@@ -58,7 +58,14 @@ define([
                         Math.min(feature.get('end') + this.config.broaden, block.endBase),
                     )
 
-                    const highlight = dom.create('div', {}, block.domNode)
+                    const highlight = dom.create('div', {
+                        style: {
+                                left: `${s}px`,
+                                width: `${e - s}px`,
+                                height: canvas.style.height
+                        },
+                        class: 'Label'
+                    }, block.domNode)
 
                     const ret = dom.create(
                         'div',
@@ -75,6 +82,7 @@ define([
                                         ? this.config.highlightColor(feature, this)
                                         : this.config.highlightColor,
                             },
+                            class: 'LabelBody'
                         },
                         highlight,
                     )
@@ -93,6 +101,7 @@ define([
                                         ? this.config.indicatorColor(feature, this)
                                         : this.config.indicatorColor,
                             },
+                            class: 'LabelIndicator'
                         },
                         highlight,
                     )
@@ -115,6 +124,7 @@ define([
                                         position: 'absolute',
                                     },
                                     innerHTML: this.config.style.label(feature, this),
+                                    class: 'LabelText',
                                 },
                                 highlight,
                             )
@@ -122,8 +132,7 @@ define([
 
                     }
 
-                    if(this.config.dojoMenu)
-                    {
+                    if (this.config.dojoMenu) {
                         this.config.addMenu(this, feature, highlight)
                     }
 
